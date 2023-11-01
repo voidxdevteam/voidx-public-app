@@ -67,7 +67,7 @@ void app_main(void)
     //new DigitalChorus(System::appNode());
     //new DualAxis(System::appNode());
     //new Tuner(System::appNode(), System::rootNode(), System::systemNode());
-    new Eq7(System::appNode(), System::rootNode(), System::systemNode());
+    new IrLoaderStereo(System::appNode(), NULL);
 
 	AudioProcessor::audioInitialize(System::systemNode());
     //Com::initialize();

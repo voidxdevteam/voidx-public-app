@@ -12,8 +12,13 @@
 IrLoaderStereo::IrLoaderStereo(Node * parent, Node * parentControl) : AudioBlock(parent) {
 	NodeList * list = new NodeList(System::rootNode(), "ir", "ir list", "wav_48000", 4096, 16);
     printf("loading ir loader stereo %d %d\n", (int)parent, (int)list);
+    //on off
     this->onoff = new NodeEnum(parent, "on_off", "Enable", {"ON", "OFF"}, "ON");
     Light::setStatus((NodeEnum *)this->onoff);
+    Storage::addItem(this->onoff);
+    //presets
+    NodePreset * pres = new NodePreset(parent, "preset", "Preset", "", new NodeList(System::rootNode(), "presets", "Presets", "pst", 4096, 128));
+    //data
 	this->lvl = new NodeFloat(parent, "vol", "Volume", 0, 1.0f, 1.0f, "", 0.1f, false);
 	Node * left_folder = new NodeItem(parent, "left", "Left channel", "", NODE_ITEM_TYPE_HFOLDER);
 	Node * right_folder = new NodeItem(parent, "right", "Right channel", "", NODE_ITEM_TYPE_HFOLDER);
@@ -26,9 +31,8 @@ IrLoaderStereo::IrLoaderStereo(Node * parent, Node * parentControl) : AudioBlock
     this->right_ir_node = new NodeParList(right_folder, "rir", "IR", "", list);
     this->input_mode = new NodeEnum(routing_folder, "in_mode", "In Mode", {"STEREO", "LEFT", "RIGHT", "SUM"}, "STEREO");
     this->output_mode = new NodeEnum(routing_folder, "out_mode", "Out Mode", {"STEREO", "LEFT", "RIGHT", "SUM"}, "STEREO");
-    Storage::addItem(new NodeControlMidiPC(parentControl, "midi1", "MIDI PC", this->right_ir_node, 1));
+    //Storage::addItem(new NodeControlMidiPC(parentControl, "midi1", "MIDI PC", this->right_ir_node, 1));
     //presets
-    NodePreset * pres = new NodePreset(parent, "preset", "Preset", "", new NodeList(System::rootNode(), "presets", "Presets", "pst", 4096, 128));
     Storage::addItem(pres);
     //drawerhome
     DrawerHome * drw = new DrawerHome(NULL, NULL, NULL);
