@@ -25,8 +25,10 @@ IrLoaderStereo::IrLoaderStereo(Node * parent, Node * parentControl) : AudioBlock
 	Node * routing_folder = new NodeItem(parent, "routing", "Routing", "tc", NODE_ITEM_TYPE_VFOLDER);
     this->left_onoff = new NodeEnum(left_folder, "on_off", "Enable", {"ON", "OFF"}, "ON");
 	this->left_gain = new NodeFloat(left_folder, "lgain", "Gain", -20.0f, 40.0f, 0.0f, "dB", 0.5f, false);
+	this->left_blend = new NodeFloat(left_folder, "blend", "Blend", 0, 1.0f, 1.0f, "", 0.2f, false);
     this->right_onoff = new NodeEnum(right_folder, "on_off", "Enable", {"ON", "OFF"}, "ON");
 	this->right_gain = new NodeFloat(right_folder, "rgain", "Gain", -20.0f, 40.0f, 0.0f, "dB", 0.5f, false);
+	this->right_blend = new NodeFloat(right_folder, "blend", "Blend", 0, 1.0f, 1.0f, "", 0.2f, false);
     this->left_ir_node = new NodeParList(left_folder, "lir", "IR", "", list);
     this->right_ir_node = new NodeParList(right_folder, "rir", "IR", "", list);
     this->input_mode = new NodeEnum(routing_folder, "in_mode", "In Mode", {"STEREO", "LEFT", "RIGHT", "SUM"}, "STEREO");
@@ -62,8 +64,8 @@ void IrLoaderStereo::compile(){
     if(((NodeEnum *)this->right_onoff)->isValue("OFF")) this->rgain = 0;
     this->level = (((NodeFloat *)(this->lvl))->getValue());
     //printf("left = %d right = %d\n\n", (int)left_ptr, (int)right_ptr);
-    if(left_ptr != 0) this->left_fir->load(left_ptr);
-    if(right_ptr != 0) this->right_fir->load(right_ptr);
+    if(left_ptr != 0) this->left_fir->load_blend(left_ptr, ((NodeFloat *)(this->left_blend))->getValue());
+    if(right_ptr != 0) this->right_fir->load_blend(right_ptr, ((NodeFloat *)(this->right_blend))->getValue());
 }
 
 void IrLoaderStereo::exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]){

@@ -18,6 +18,8 @@ private:
     Node * right_gain;
     Node * left_onoff;
     Node * right_onoff;
+    Node * left_blend;
+    Node * right_blend;
     QuadFIR * left_fir;
     QuadFIR * right_fir;
     float level;

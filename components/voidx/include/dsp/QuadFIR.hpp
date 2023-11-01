@@ -15,5 +15,6 @@ public:
     QuadFIR(int size);
     float * getInputBuffer();
     void load(float * filter);
+    void load_blend(float * buffer, float blend);
     void exec(float * in, float * out, int length);
 };
