@@ -23,6 +23,7 @@ typedef void (*uart_receive_callback_t)(struct ble_gatt_access_ctxt *ctxt);
 
 esp_err_t nordic_uart_start(const char *device_name, void (*callback)(enum nordic_uart_callback_type callback_type));
 void nordic_uart_stop(void);
+int nordic_uart_get_connection_status();
 
 esp_err_t nordic_uart_send(const char *message, char eol);
 esp_err_t nordic_uart_sendln(const char *message);
