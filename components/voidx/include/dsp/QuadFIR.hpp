@@ -16,5 +16,6 @@ public:
     float * getInputBuffer();
     void load(float * filter);
     void load_blend(float * buffer, float blend);
+    void load_smooth_blend(float * buffer, float blend, float smooth);
     void exec(float * in, float * out, int length);
 };

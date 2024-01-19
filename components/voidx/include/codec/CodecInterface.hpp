@@ -5,7 +5,7 @@
 #include "driver/i2c.h"
 #include "driver/i2s.h"
 
-#define SAMPLING_FREQ 		(48000)
+#define SAMPLING_FREQ 		(44100)
 #define SAMPLING_FRAME      (16)
 #define BUFFER_COUNT		(3)
 #define SAMPLING_CHANNELS   (2)

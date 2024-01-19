@@ -1,4 +1,7 @@
 #pragma once
+#include "utils.hpp"
+#include "../driver/io.h"
+#include "../driver/io_array.hpp"
 #include <list>
 
 class Listener {
@@ -15,8 +18,19 @@ namespace EventDispatcher
    void addEvent(int event);
    bool dispatch();
    int elements();
-   void broadcast();
+   void broadcast(int event);
 }
+
+#define TIMER_TON(input, time_ms, exec){\
+		static unsigned int time_status;\
+		if(input){\
+			if((xthal_get_ccount()-time_status) > (time_ms * 1000 * CCT_TICKS_PER_US)){\
+				exec;\
+			}\
+		} else {\
+			time_status = xthal_get_ccount();\
+		}\
+	}
 
 #define ENCODER(a, b, up, down, steps) {\
 		int new_ab_value = a * 2 + b;\
@@ -64,6 +78,9 @@ static const int QEM [16] = {0,-1,1,0,1,0,0,-1,-1,0,0,1,0,1,-1,0};
 #define EVENT_FSW_LONG_RELEASED  	17
 #define EVENT_TIMER_200MS   		20
 #define EVENT_INPUT					64
+
+#define EVENT_TIME_MS   (10)
+#define EVENT_MS(x)     (x / EVENT_TIME_MS)
 
 void waitModal();
 void system_tasks(void * parametr);

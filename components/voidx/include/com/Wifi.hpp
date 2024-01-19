@@ -35,6 +35,7 @@ private:
 	socklen_t socklen;
 	int socket_state;
 	char * buffer;
+	bool connected;
 public:
 	Wifi(Node * root, Node * devName, int port);
 	void initialize();

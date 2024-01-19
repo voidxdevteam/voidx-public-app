@@ -20,5 +20,6 @@ namespace IOArray {
     int ms_to_tick(int ms);
     int get_max_io();
     int get_max_pwm();
+    char get_output_status(int byte_index);
 }
 

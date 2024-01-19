@@ -21,6 +21,7 @@ public:
 	virtual bool setValue(std::string value);
 
 	void edit(bool dir);
+	bool canEdit(bool dir);
     void * getStorageData(int * length);
 	bool fromString(std::string value);
 	std::string toString();
