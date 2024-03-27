@@ -5,6 +5,7 @@
 class NodeEnum : public Node {
 private:
 	std::string value;
+	std::string defaultValue;
 	std::vector<const char *> elms;
 
 public:

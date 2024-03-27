@@ -8,6 +8,7 @@
 #include "Light.hpp"
 #include "drawerNode.hpp"
 #include "dsp/AudioProcessor.hpp"
+#include "../bsp/MiniStompX.hpp"
 
 void BiquadExec_init(BiquadExecData * item){
 	item->d_state[0] = 0;
@@ -66,12 +67,15 @@ void BiquadExec_exec(float * x, float *b, float *a, float * delay, float * y){
 }
 
 Eq7::Eq7(Node * parent, Node *root, Node * sys) : AudioBlock(parent){
+    new MiniStompX();
 	//info data
 	this->sys = sys;
 	NodeItem * name = (NodeItem *)root->pathToNode("root\\sys\\_name");
 	if(name != NULL) name->setValue("Equalizer 7");
 	NodeItem * author = (NodeItem *)root->pathToNode("root\\sys\\_author");
 	if(author != NULL) author->setValue("VoidX");
+	NodeItem * logo = (NodeItem *)root->pathToNode("root\\sys\\_logo");
+	if(logo != NULL) logo->setValue("https://futuranet.it/wp-content/uploads/2022/01/cropped-android-chrome-512x512-1-2.png");
 	//param data
     this->onoff = new NodeEnum(parent, "on_off", "Enable", {"ON", "OFF"}, "OFF");
 	this->band_level[0] = new NodeFloat(parent, "band100", "100 Hz", -15.0f, 15.0f, 0, "dB", 0.5f, false);

@@ -52,14 +52,7 @@ static void system_info(void * ptr){
 extern "C"
 void app_main(void)
 {
-    //io_initialize();
-    IOArray::initialize(8, 4000, 100, 32);
-    //update_initialize();
-    Codec::initialize();
     System::initialize();
-    //lcd must be started after codec
-    lcd_initialize();
-    //func();
     
     new Wifi(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"), 8080);
     new Bluetooth(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"));
@@ -67,7 +60,7 @@ void app_main(void)
     //new DigitalChorus(System::appNode());
     //new DualAxis(System::appNode());
     //new Tuner(System::appNode(), System::rootNode(), System::systemNode());
-    new IrLoaderStereo(System::appNode(), NULL);
+    new Eq7(System::appNode(), System::rootNode(), System::systemNode());
 
 	AudioProcessor::audioInitialize(System::systemNode());
     //Com::initialize();

@@ -1,3 +1,6 @@
+#ifndef GLCD_H
+#define GLCD_H
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6,8 +9,7 @@ extern "C" {
 #include "font5x8.h"
 #include "fonts/allfonts.h"
 
-#ifndef GLCD_H
-#define GLCD_H
+
 
 //data
 /*
@@ -88,9 +90,11 @@ void glcd_drawBigChar(unsigned char, unsigned char, char, char);
 void glcd_drawString(unsigned char, unsigned char, char*, char);
 int glcd_drawStringFont(unsigned char x, unsigned char y, char *string, const unsigned char * font, char color);
 int glcd_drawStringFontLimited(int x, int y, int max_x, int offset, char * string, const unsigned char * font, char color);
+int glcd_drawStringFontLimitedCut(int x, int y, int max_x, int offset, char * string, const unsigned char * font, char color);
 void glcd_drawStringFontCentered(unsigned char x, unsigned char y, unsigned char count, char *string, const unsigned char * font, char color);
 int glcd_drawStringFontRightAligned(unsigned char x, unsigned char y, char * string, const unsigned char * font, char color);
 int glcd_drawStringFontRightAlignedTrim(unsigned char x, unsigned char y, int trim, int pos, char * string, const unsigned char * font, char color);
+int glcd_drawStringFontTrim(unsigned char x, unsigned char y, int trim, int pos, char * string, const unsigned char * font, char color);
 void glcd_drawBigString(unsigned char, unsigned char, char*, char);
 void glcd_drawStringCentered(unsigned char, unsigned char, unsigned char, char*, char);
 void glcd_drawBigStringCentered(unsigned char, unsigned char, unsigned char, char*, char);
@@ -111,8 +115,10 @@ void glcd_drawFullImageOffset(const unsigned char * image, char offset);
 //void glcd_drawSpectrum(unsigned char x, unsigned char y, unsigned char spectrumWidth, unsigned char spectrumHeigth, float * IR, unsigned int NTaps);
 void glcd_drawImage(const unsigned char * image, unsigned char x, unsigned char y, unsigned char rows, unsigned char columns, unsigned char type); //rows e columns multipli di 8!
 
-#endif
 
 #ifdef __cplusplus
 }
+#endif
+
+
 #endif

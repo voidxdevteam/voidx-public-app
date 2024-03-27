@@ -10,7 +10,9 @@ namespace AudioProcessor
 {
     void audioLoop(void * args);
     void audioInitialize(Node * parent);
-    void addBlock(AudioBlock * block);
+    void addBlock(AudioBlock * block, int mode = AudioBlock::AddPushBack);
+    bool channelSaturation(int channel, int io);
     float meter(int channel, int io);
+    bool saturation();
     bool isInitialized();
 }

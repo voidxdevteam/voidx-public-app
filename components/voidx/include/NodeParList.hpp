@@ -15,6 +15,7 @@ public:
 	NodeList * getReferenceList();
 	char * getData();
 	std::string getValue();
+	std::string getValueAt(int index);
 	int getElementCount();
 	int getIndex();
 	virtual bool isEditable();

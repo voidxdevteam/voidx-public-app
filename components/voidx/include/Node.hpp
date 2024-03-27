@@ -25,6 +25,7 @@ protected:
 	Node* parent;
 	std::list<Node *> children;
 	int64_t editTime;
+	bool visible;
 
 public:
 	Node(Node* parent, const char* name, const char * displayName);
@@ -34,15 +35,20 @@ public:
 	std::string getPath();
 	Node* pathToNode(std::string path);
 	int childrenCount();
+	int childrenCount(bool visible);
 	int leafCount();
 	Node* getParent();
 	Node* childrenAt(int index);
+	Node * childrenAt(int index, bool visible);
 	bool isLeaf();
+	bool isVisible();
+	void setVisible(bool visible);
 
 	bool parseJSON(std::string data);
 	std::string getJSON(bool description);
 	std::string getJSON(bool description, bool recursive);
 	std::string getJSON_after(bool description, bool recursive, Node * after);
+	std::string getJSON_after(bool description, bool recursive, Node * after, bool older, int64_t time, bool include_leaf);
 
 	//timing
 	void notifyUpdate();

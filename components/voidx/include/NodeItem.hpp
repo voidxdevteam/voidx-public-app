@@ -17,7 +17,7 @@ public:
 	NodeItem(Node* parent, const char* name, const char* displayName, std::string value, const char * itemType);
 
 	const char* getType();
-	std::string getValue();
+	virtual std::string getValue();
 	bool setValue(std::string value);
 
 	void edit(bool dir);
