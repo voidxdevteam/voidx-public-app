@@ -30,7 +30,6 @@
 #include "codec/CodecInterface.hpp"
 #include "dsp/AudioProcessor.hpp"
 #include "bsp/MiniStompX.hpp"
-#include "source/app.hpp"
 #include "com/Bluetooth.hpp"
 #include "com/Wifi.hpp"
 #include "com/Serial.hpp"
@@ -57,10 +56,17 @@ void app_main(void)
 {
     System::initialize();
 
-    appInitialize();
+    /* Choose peripherals */ 
+    new Wifi(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"), 8080);
+    new Bluetooth(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"));
+    new Serial(System::rootNode(), UART_NUM_0, UART_NUM_0_TXD_DIRECT_GPIO_NUM, UART_NUM_0_RXD_DIRECT_GPIO_NUM);
+
+    /* Start the application */
+    new Eq7(System::appNode(), System::rootNode(), System::systemNode());
 
 	AudioProcessor::audioInitialize(System::systemNode());
     
+    /* Start relevant tasks */
     xTaskCreatePinnedToCore(system_tasks, "systemTasks", 8192, NULL, 4, NULL, 0);
     xTaskCreatePinnedToCore(event_tasks, "eventTasks", 8192, NULL, 5, NULL, 0);
     xTaskCreatePinnedToCore(system_info, "infoTasks", 4096, NULL, 2, NULL, 0);
