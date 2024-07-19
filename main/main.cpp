@@ -17,6 +17,7 @@
 #include "esp_system.h"
 #include "esp_check.h"
 #include "driver/update/update.hpp"
+#include "source/DigitalDelay.hpp"
 #include "esp_dsp.h"
 #include "nvs_flash.h"
 #include "nvs.h"
@@ -62,7 +63,7 @@ void app_main(void)
     new Serial(System::rootNode(), UART_NUM_0, UART_NUM_0_TXD_DIRECT_GPIO_NUM, UART_NUM_0_RXD_DIRECT_GPIO_NUM);
 
     /* Start the application */
-    new Eq7(System::appNode(), System::rootNode(), System::systemNode());
+    new DigitalDelay(System::appNode(), System::rootNode());
 
 	AudioProcessor::audioInitialize(System::systemNode());
     
