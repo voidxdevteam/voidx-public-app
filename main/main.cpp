@@ -17,7 +17,7 @@
 #include "esp_system.h"
 #include "esp_check.h"
 #include "driver/update/update.hpp"
-#include "source/DigitalDelay.hpp"
+#include "app/DigitalDelay.hpp"
 #include "esp_dsp.h"
 #include "nvs_flash.h"
 #include "nvs.h"
