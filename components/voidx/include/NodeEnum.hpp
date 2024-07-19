@@ -15,7 +15,15 @@ public:
 
 	bool isValue(const char * val);
 	void edit(bool dir);
+	void toggle();
 	void setValue(std::string value);
+	
+    //! Verify if a NodeEnum contains a specific option
+    /*!
+      \param option name of the option   
+      \return the test result: true if option is a possible value of the NodeEnum
+    */
+	bool hasValue(std::string option);
     void * getStorageData(int * length);
 	std::string toString();
 	bool fromString(std::string value);

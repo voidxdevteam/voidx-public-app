@@ -4,12 +4,8 @@
 #include "driver/gpio.h"
 #include "driver/i2c.h"
 #include "driver/i2s.h"
+#include "audioSettings.h"
 
-#define SAMPLING_FREQ 		(44100)
-#define SAMPLING_FRAME      (16)
-#define BUFFER_COUNT		(3)
-#define SAMPLING_CHANNELS   (2)
-#define SAMPLING_BUFFER		(SAMPLING_CHANNELS * SAMPLING_FRAME)
 
 #define DEFAULT_I2S_MCK_IO      (GPIO_NUM_38)
 #define DEFAULT_I2S_BCK_IO      (GPIO_NUM_18)

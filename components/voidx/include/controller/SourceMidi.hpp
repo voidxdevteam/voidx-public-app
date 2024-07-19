@@ -6,6 +6,7 @@
 
 #define SOURCE_MIDI "midi"
 #define SOURCE_TYPE_MIDI_PC "pc"
+#define SOURCE_EXPR "expr"
 
 class SourceMidi: public Source {
     static const int MIDI_BUFFER_LENGTH = 6;

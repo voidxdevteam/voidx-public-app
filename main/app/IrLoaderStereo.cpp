@@ -1,3 +1,4 @@
+#include "../bsp/MiniStompX.hpp"
 #include "IrLoaderStereo.hpp"
 #include "Light.hpp"
 #include "System.hpp"
@@ -9,31 +10,37 @@
 #include "NodeControlMidiPC.hpp"
 #include <math.h>
 
-IrLoaderStereo::IrLoaderStereo(Node * parent, Node * parentControl) : AudioBlock(parent) {
+IrLoaderStereo::IrLoaderStereo(Node * parent, Node * root) : AudioBlock(parent) {
+    new MiniStompX();
+	//info data
+	NodeItem * name = (NodeItem *)root->pathToNode("root\\sys\\_name");
+	if(name != NULL) name->setValue("Stereo IR Loader");
+	NodeItem * author = (NodeItem *)root->pathToNode("root\\sys\\_author");
+	if(author != NULL) author->setValue("Frog");
+    NodeItem * logo = (NodeItem *)root->pathToNode("root\\sys\\_logo");
+	if(logo != NULL) logo->setValue("https://globaluserfiles.com/media/7446_dd23cbcb77fd40f990aaa6555e6cf07f9eeb811f.png/v1/w_427,h_0/logo-frog-amps-gold-header.fw.png");
+
 	NodeList * list = new NodeList(System::rootNode(), "ir", "ir list", "wav_48000", 4096, 16);
-    printf("loading ir loader stereo %d %d\n", (int)parent, (int)list);
     //on off
     this->onoff = new NodeEnum(parent, "on_off", "Enable", {"ON", "OFF"}, "ON");
     Light::setStatus((NodeEnum *)this->onoff);
-    Storage::addItem(this->onoff);
     //presets
     NodePreset * pres = new NodePreset(parent, "preset", "Preset", "", new NodeList(System::rootNode(), "presets", "Presets", "pst", 4096, 128));
     //data
 	this->lvl = new NodeFloat(parent, "vol", "Volume", 0, 1.0f, 1.0f, "", 0.1f, false);
 	Node * left_folder = new NodeItem(parent, "left", "Left channel", "", NODE_ITEM_TYPE_HFOLDER);
 	Node * right_folder = new NodeItem(parent, "right", "Right channel", "", NODE_ITEM_TYPE_HFOLDER);
-	Node * routing_folder = new NodeItem(parent, "routing", "Routing", "tc", NODE_ITEM_TYPE_VFOLDER);
+	Node * routing_folder = new NodeItem(parent, "routing", "Routing", "tc", NODE_ITEM_TYPE_VFOLDER_TC);
     this->left_onoff = new NodeEnum(left_folder, "on_off", "Enable", {"ON", "OFF"}, "ON");
 	this->left_gain = new NodeFloat(left_folder, "lgain", "Gain", -20.0f, 40.0f, 0.0f, "dB", 0.5f, false);
-	this->left_blend = new NodeFloat(left_folder, "blend", "Blend", 0, 1.0f, 1.0f, "", 0.2f, false);
     this->right_onoff = new NodeEnum(right_folder, "on_off", "Enable", {"ON", "OFF"}, "ON");
 	this->right_gain = new NodeFloat(right_folder, "rgain", "Gain", -20.0f, 40.0f, 0.0f, "dB", 0.5f, false);
-	this->right_blend = new NodeFloat(right_folder, "blend", "Blend", 0, 1.0f, 1.0f, "", 0.2f, false);
     this->left_ir_node = new NodeParList(left_folder, "lir", "IR", "", list);
     this->right_ir_node = new NodeParList(right_folder, "rir", "IR", "", list);
     this->input_mode = new NodeEnum(routing_folder, "in_mode", "In Mode", {"STEREO", "LEFT", "RIGHT", "SUM"}, "STEREO");
     this->output_mode = new NodeEnum(routing_folder, "out_mode", "Out Mode", {"STEREO", "LEFT", "RIGHT", "SUM"}, "STEREO");
     //Storage::addItem(new NodeControlMidiPC(parentControl, "midi1", "MIDI PC", this->right_ir_node, 1));
+
     //presets
     Storage::addItem(pres);
     //drawerhome
@@ -64,8 +71,8 @@ void IrLoaderStereo::compile(){
     if(((NodeEnum *)this->right_onoff)->isValue("OFF")) this->rgain = 0;
     this->level = (((NodeFloat *)(this->lvl))->getValue());
     //printf("left = %d right = %d\n\n", (int)left_ptr, (int)right_ptr);
-    if(left_ptr != 0) this->left_fir->load_blend(left_ptr, ((NodeFloat *)(this->left_blend))->getValue());
-    if(right_ptr != 0) this->right_fir->load_blend(right_ptr, ((NodeFloat *)(this->right_blend))->getValue());
+    if(left_ptr != 0) this->left_fir->load(left_ptr);
+    if(right_ptr != 0) this->right_fir->load(right_ptr);
 }
 
 void IrLoaderStereo::exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]){

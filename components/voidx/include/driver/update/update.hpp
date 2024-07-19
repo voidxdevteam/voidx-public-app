@@ -5,4 +5,6 @@
 #include "esp_ota_ops.h"
 #include "esp_partition.h"
 
-void update_initialize();
+namespace Update {
+    void update_initialize();
+}

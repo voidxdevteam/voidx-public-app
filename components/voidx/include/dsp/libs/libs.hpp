@@ -21,5 +21,6 @@
 
 #include "mkMath.hpp"
 #include "eq_utils.hpp"
+#include "dftUtils.hpp"
 #include "MK_optimized_MATHLIB.hpp"
 #include "MK_optimized_DSPLIB.hpp"

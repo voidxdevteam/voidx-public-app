@@ -1,12 +1,13 @@
 #pragma once
 #include "Node.hpp"
 
-#define NODE_ITEM_TYPE_STRING 	"string"
-#define NODE_ITEM_TYPE_SYSTEM 	"system"
-#define NODE_ITEM_TYPE_COLOR 	"color"
-#define NODE_ITEM_TYPE_HFOLDER 	"hfolder"
-#define NODE_ITEM_TYPE_VFOLDER 	"vfolder"
-#define NODE_ITEM_TYPE_MODULE 	"module"
+#define NODE_ITEM_TYPE_STRING 		"string"
+#define NODE_ITEM_TYPE_SYSTEM 		"system"
+#define NODE_ITEM_TYPE_COLOR 		"color"
+#define NODE_ITEM_TYPE_HFOLDER 		"hfolder"
+#define NODE_ITEM_TYPE_VFOLDER 		"vfolder"
+#define NODE_ITEM_TYPE_VFOLDER_TC 	"vfolder_tc"
+#define NODE_ITEM_TYPE_MODULE 		"module"
 
 class NodeItem : public Node {
 private:

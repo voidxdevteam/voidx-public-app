@@ -32,6 +32,7 @@ public:
 
 	const char* getName();
 	const char* getDisplayName();
+	void setDisplayName(const char * displayName);
 	std::string getPath();
 	Node* pathToNode(std::string path);
 	int childrenCount();
@@ -40,11 +41,13 @@ public:
 	Node* getParent();
 	Node* childrenAt(int index);
 	Node * childrenAt(int index, bool visible);
+	std::list<Node *> getChildren();
 	bool isLeaf();
 	bool isVisible();
 	void setVisible(bool visible);
 
 	bool parseJSON(std::string data);
+
 	std::string getJSON(bool description);
 	std::string getJSON(bool description, bool recursive);
 	std::string getJSON_after(bool description, bool recursive, Node * after);

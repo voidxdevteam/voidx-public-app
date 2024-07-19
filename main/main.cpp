@@ -3,7 +3,6 @@
  *
  * SPDX-License-Identifier: CC0-1.0
  */
-
 //#include <kore.hpp>
 #include <stdio.h>
 #include <string.h>
@@ -25,20 +24,23 @@
 #include "System.hpp"
 #include "Event.hpp"
 #include "debug.hpp"
-#include "display/lcd.hpp"
+#include "DrawerNode.hpp"
 #include "app/IrLoaderStereo.hpp"
 #include "app/Eq7.hpp"
-#include "dsp/AudioProcessor.hpp"
 #include "codec/CodecInterface.hpp"
+#include "dsp/AudioProcessor.hpp"
 #include "com/Bluetooth.hpp"
 #include "com/Wifi.hpp"
+#include "com/Serial.hpp"
+#include "bsp/MiniStompX.hpp"
 
 static void system_info(void * ptr){
     while(1){
+        //char buffer[2048];
         //vTaskList(buffer);
         //puts(buffer);
         //ESP_LOGW("cycle ", "%d / %d max %d", Debug::getExecTicks(), Debug::getCycleTicks(), Debug::getMaxExecTicks(true));
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        vTaskDelay(2000 / portTICK_PERIOD_MS);
 		#ifdef DEBUG_HEAP
         //heap_caps_print_heap_info(MALLOC_CAP_DEFAULT);
         int bytesFree = heap_caps_get_free_size(MALLOC_CAP_8BIT | MALLOC_CAP_SPIRAM);
@@ -53,21 +55,18 @@ extern "C"
 void app_main(void)
 {
     System::initialize();
+
     
     new Wifi(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"), 8080);
     new Bluetooth(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"));
+    new Serial(System::rootNode(), UART_NUM_0, UART_NUM_0_TXD_DIRECT_GPIO_NUM, UART_NUM_0_RXD_DIRECT_GPIO_NUM);
 
-    //new DigitalChorus(System::appNode());
-    //new DualAxis(System::appNode());
-    //new Tuner(System::appNode(), System::rootNode(), System::systemNode());
     new Eq7(System::appNode(), System::rootNode(), System::systemNode());
 
 	AudioProcessor::audioInitialize(System::systemNode());
-    //Com::initialize();
-    //xTaskCreate(testStorage, "storeTask", 5000, NULL, 2, NULL);
+    
     xTaskCreatePinnedToCore(system_tasks, "systemTasks", 8192, NULL, 4, NULL, 0);
     xTaskCreatePinnedToCore(event_tasks, "eventTasks", 8192, NULL, 5, NULL, 0);
     xTaskCreatePinnedToCore(system_info, "infoTasks", 4096, NULL, 2, NULL, 0);
-    xTaskCreatePinnedToCore(Com::com_tasks, "infoTasks", 1024*16, NULL, 6, NULL, 0);
-    //xTaskCreatePinnedToCore(midiTask, "midiTask", 8192, NULL, 3, NULL, 0);
+    xTaskCreatePinnedToCore(Com::com_tasks, "comTasks", 1024*16, NULL, 6, NULL, 0);
 }

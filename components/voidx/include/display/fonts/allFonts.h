@@ -54,9 +54,17 @@
 #include "fixednums7x15.h"       // fixed width font - + , - . / [0-9] and :
 #include "fixednums8x16.h"       // fixed width font - + , - . / [0-9] and :
 #include "fixednums15x31.h"      // fixed width font - + , - . / [0-9] and :
+#include "fixednums16x40.h"      // fixed width font - + , - . / [0-9] and :
+#include "fixednums17x40.h"      // fixed width font - + , - . / [0-9] and :
+#include "fixednums20x40.h"      // fixed width font - + , - . / [0-9] and :
+#include "fixednums16x44.h"      // fixed width font - + , - . / [0-9] and :
+
 
 #include "CalBlk36.h"
 #include "CalLite24.h"
+#include "California7x20.h"
+#include "California8x22.h"
+#include "California8x24.h"
 #include "lcdnums12x16.h"	// font that looks like LCD digits
 #include "lcdnums14x24.h"	// font that looks like LCD digits
 #include "fixed_bold10x15.h"

@@ -11,9 +11,11 @@ private:
     int cursor;
     int viewCursor;
     int slide;
+    std::string version;
 public:
     DrawerHome(Node * node, Node * sys, NodePreset * pres);
     void setNodes(Node * node, Node * sys, NodePreset * pres);
+    void setVersion(std::string version);
     bool draw();
     bool onEvent(int event);
 };

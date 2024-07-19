@@ -18,8 +18,6 @@ private:
     Node * right_gain;
     Node * left_onoff;
     Node * right_onoff;
-    Node * left_blend;
-    Node * right_blend;
     QuadFIR * left_fir;
     QuadFIR * right_fir;
     float level;
@@ -28,7 +26,7 @@ private:
     float left_ir[FIR_LENGTH];
     float right_ir[FIR_LENGTH];
 public:
-    IrLoaderStereo(Node * parent, Node * parentControl);
+    IrLoaderStereo(Node * parent, Node * root);
     void compile();
     void exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]);
 };

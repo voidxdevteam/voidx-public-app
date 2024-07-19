@@ -4,6 +4,7 @@
 
 #define POPUP_NOTIFY    0
 #define POPUP_CONFIRM   1
+#define POPUP_SAVE_DISCARD 2
 
 class DrawerPopup: public Listener {
 private:

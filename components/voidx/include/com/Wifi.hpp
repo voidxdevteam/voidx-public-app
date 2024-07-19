@@ -27,7 +27,7 @@ private:
 	int server_sock[WIFI_MAX_SERVER];
 	int ip_protocol;
 	int addr_family;
-	mdns_txt_item_t desc_txt[2];
+	mdns_txt_item_t desc_txt[3];
 	char service_instance[50];
 	struct timeval timeout;
     struct sockaddr_in6 dest_addr;
