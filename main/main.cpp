@@ -29,10 +29,11 @@
 #include "app/Eq7.hpp"
 #include "codec/CodecInterface.hpp"
 #include "dsp/AudioProcessor.hpp"
+#include "bsp/MiniStompX.hpp"
+#include "source/app.hpp"
 #include "com/Bluetooth.hpp"
 #include "com/Wifi.hpp"
 #include "com/Serial.hpp"
-#include "bsp/MiniStompX.hpp"
 
 static void system_info(void * ptr){
     while(1){
@@ -56,12 +57,7 @@ void app_main(void)
 {
     System::initialize();
 
-    
-    new Wifi(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"), 8080);
-    new Bluetooth(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"));
-    new Serial(System::rootNode(), UART_NUM_0, UART_NUM_0_TXD_DIRECT_GPIO_NUM, UART_NUM_0_RXD_DIRECT_GPIO_NUM);
-
-    new Eq7(System::appNode(), System::rootNode(), System::systemNode());
+    appInitialize();
 
 	AudioProcessor::audioInitialize(System::systemNode());
     
