@@ -2,7 +2,7 @@
 #include "dsp/AudioBlock.hpp"
 #include "NodeFloat.hpp"
  
-class DigitalDelay: public AudioBlock {
+class BasicDelay: public AudioBlock {
 private:
     //Parameters
     NodeFloat * mix;
@@ -17,7 +17,7 @@ private:
     int delaySamplesDsp; //Delay length in samples
  
 public:
-    DigitalDelay(Node * parent, Node *root); //Class constructor
+    BasicDelay(Node * parent, Node *root); //Class constructor
     void compile(); //Inherited from AudioBlock
     void exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]); //Inherited from AudioBlock
 };

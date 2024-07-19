@@ -1,5 +1,5 @@
 
-#include "DigitalDelay.hpp"
+#include "BasicDelay.hpp"
 #include "../bsp/MiniStompX.hpp"
 #include <malloc.h>
 #include "DrawerHome.hpp"
@@ -11,14 +11,14 @@
 parent: application node pointer (typically root/app).
 root: root node pointer.
 */
-DigitalDelay::DigitalDelay(Node * parent, Node *root) : AudioBlock(parent){
+BasicDelay::BasicDelay(Node * parent, Node *root) : AudioBlock(parent){
     /* Initialize the MiniStompX hardware interface. */
     /* BSP classes encapsulate hardware interactions, triggering hardware events, and controlling hardware devices. */
     new MiniStompX();
  
     /* Define application metadata: name, author, and logo. */
     NodeItem * name = (NodeItem *)root->pathToNode("root\\sys\\_name"); //Access the node using its predefined path.
-    if(name != NULL) name->setValue("Digital Delay"); //Assign a value to the node.
+    if(name != NULL) name->setValue("Basic Delay"); //Assign a value to the node.
  
     NodeItem * author = (NodeItem *)root->pathToNode("root\\sys\\_author");
     if(author != NULL) author->setValue("VoidX-DevTeam");
@@ -50,7 +50,7 @@ DigitalDelay::DigitalDelay(Node * parent, Node *root) : AudioBlock(parent){
     this->compile();
 }
  
-void DigitalDelay::compile(){
+void BasicDelay::compile(){
     
     /* Mix: Convert the percentage value to a 0-1 representation. */
     this->mixDsp = this->mix->getValue() / 100.0f;
@@ -69,7 +69,7 @@ The data bi-dimensional array stores the raw audio samples.
 -The SAMPLING_FRAME constant defines the number of audio samples processed together, usually 16 samples per batch.
 Input is taken from the Left channel only (Right channel is ignored). Output is equal on both channels.
 */
-void DigitalDelay::exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]){
+void BasicDelay::exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]){
     /* Sample-by-sample unoptimized processing */
     /* Vectorization can significantly improve processing speed. */
     for(int i = 0; i < SAMPLING_FRAME; i++){
