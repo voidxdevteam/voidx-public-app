@@ -55,7 +55,7 @@ static void system_info(void * ptr){
 extern "C"
 void app_main(void)
 {
-    System::initialize();
+    System::initialize(NULL);
 
     /* Choose peripherals */ 
     new Wifi(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"), 8080);
