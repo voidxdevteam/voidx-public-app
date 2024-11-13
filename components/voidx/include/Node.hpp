@@ -10,6 +10,7 @@ extern std::hash<std::string> string_hasher;
 #define NODE_TYPE_FLOAT				"float"
 #define NODE_TYPE_ENUM				"enum"
 #define NODE_TYPE_ITEM				"item"
+#define NODE_TYPE_ACTION			"action"
 #define NODE_TYPE_LIST				"list"
 #define NODE_TYPE_PAR_LIST			"plist"
 #define NODE_TYPE_CONTROL			"ctrl"
@@ -18,14 +19,18 @@ extern std::hash<std::string> string_hasher;
 #define NODE_DIR_DEC				false
 
 class Node: public Storable {
+private:
+	void (* onChange)(Node * ptr);
 
 protected:
 	const char* name;
 	const char* displayName;
+	const char* style;
 	Node* parent;
 	std::list<Node *> children;
 	int64_t editTime;
 	bool visible;
+	bool parameter;
 
 public:
 	Node(Node* parent, const char* name, const char * displayName);
@@ -33,6 +38,7 @@ public:
 	const char* getName();
 	const char* getDisplayName();
 	void setDisplayName(const char * displayName);
+	void setStyle(const char * style);
 	std::string getPath();
 	Node* pathToNode(std::string path);
 	int childrenCount();
@@ -44,6 +50,7 @@ public:
 	std::list<Node *> getChildren();
 	bool isLeaf();
 	bool isVisible();
+	bool isParameter();
 	void setVisible(bool visible);
 
 	bool parseJSON(std::string data);
@@ -57,6 +64,9 @@ public:
 	void notifyUpdate();
 	int64_t getTime();
 	bool older(int64_t time, bool recursive, Node * after);
+	
+	//notifier
+	void setOnChange(void (* notifier)(Node * ptr));
 
 	//abstract functions
 	void createId();
@@ -64,8 +74,9 @@ public:
 	virtual bool fromString(std::string value) = 0;
 	virtual std::string toString() = 0;
 	virtual const char* getType() = 0;
+	virtual std::string getDescription() = 0;
 	virtual std::string getValueJSON() = 0;
-	virtual std::string getDescriptionJSON() = 0;
+	std::string getDescriptionJSON();
 	virtual ~Node() {}
 };
 

@@ -12,8 +12,11 @@ public:
 	void onLoad();
 	bool isEdited();
 	bool isEditable();
+	bool setByIndex(int index);
 	bool setValue(std::string value);
 	void saveAs(int slot, std::string name);
+
+	void setPresetAt(int index, std::string name, char * data);
 
 	void setIgnoreNode(Node * node, bool ignore);
 	void addIgnoreNode(Node * node);

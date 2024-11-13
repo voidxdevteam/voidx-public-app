@@ -32,6 +32,7 @@ public:
 	i2s_config_t * get_i2s_cfg() { return &this->i2s_cfg; };
 	i2s_pin_config_t * get_i2s_pin_cfg() { return &this->i2s_pin_cfg; };
 	i2s_port_t get_i2s_port() { return this->i2s_port; };
+	virtual void setInputGain(int channel, int db) = 0;
 };
 
 namespace Codec {

@@ -18,6 +18,6 @@ private:
  
 public:
     BasicDelay(Node * parent, Node *root); //Class constructor
-    void compile(); //Inherited from AudioBlock
-    void exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]); //Inherited from AudioBlock
+    bool compile(); //Inherited from AudioBlock
+    static bool exec(BasicDelay * ptr, float data[SAMPLING_CHANNELS][SAMPLING_FRAME]); //DSP function is a static function
 };

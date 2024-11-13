@@ -45,11 +45,13 @@
 #include "TimesNewRoman16_bold.h"
 #include "TimesNewRoman16_italic.h"
 #include "Verdana12.h"
+#include "Liberation_Sans_16.h"
 #include "Verdana12_bold.h"
 #include "Verdana12_italic.h"
 #include "Roosewood22.h"
 #include "Roosewood26.h"
 #include "ZevvPeep8x16.h"
+#include "DejaVu_Sans_16x9.h"
 
 #include "fixednums7x15.h"       // fixed width font - + , - . / [0-9] and :
 #include "fixednums8x16.h"       // fixed width font - + , - . / [0-9] and :
@@ -62,6 +64,7 @@
 
 #include "CalBlk36.h"
 #include "CalLite24.h"
+#include "Cascadia_Mono_SB_9x16.h"
 #include "California7x20.h"
 #include "California8x22.h"
 #include "California8x24.h"

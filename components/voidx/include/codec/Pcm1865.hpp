@@ -14,5 +14,6 @@ public:
 	Pcm1865(uint16_t address);
 	bool initialize();
 	void initializeIO();
+	void setInputGain(int channel, int db);
 	virtual ~Pcm1865();
 };

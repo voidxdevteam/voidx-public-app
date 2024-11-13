@@ -24,9 +24,10 @@ public:
       \return the test result: true if option is a possible value of the NodeEnum
     */
 	bool hasValue(std::string option);
+	int getIndex();
     void * getStorageData(int * length);
 	std::string toString();
 	bool fromString(std::string value);
 	std::string getValueJSON();
-	std::string getDescriptionJSON();
+	std::string getDescription();
 };

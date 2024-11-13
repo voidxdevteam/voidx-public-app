@@ -26,7 +26,6 @@
 #include "Event.hpp"
 #include "debug.hpp"
 #include "DrawerNode.hpp"
-#include "app/IrLoaderStereo.hpp"
 #include "app/Eq7.hpp"
 #include "codec/CodecInterface.hpp"
 #include "dsp/AudioProcessor.hpp"
@@ -53,23 +52,26 @@ static void system_info(void * ptr){
 }
 
 extern "C"
-void app_main(void)
-{
-    System::initialize(NULL);
+void app_main(void){
 
-    /* Choose peripherals */ 
-    new Wifi(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"), 8080);
-    new Bluetooth(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"));
-    new Serial(System::rootNode(), UART_NUM_0, UART_NUM_0_TXD_DIRECT_GPIO_NUM, UART_NUM_0_RXD_DIRECT_GPIO_NUM);
+    System::initialize(APP_LICENSE);
 
     /* Start the application */
     new BasicDelay(System::appNode(), System::rootNode());
 
-	AudioProcessor::audioInitialize(System::systemNode());
+    /* Start the audio engine */
+    AudioProcessor::audioInitialize(true);
     
-    /* Start relevant tasks */
-    xTaskCreatePinnedToCore(system_tasks, "systemTasks", 8192, NULL, 4, NULL, 0);
-    xTaskCreatePinnedToCore(event_tasks, "eventTasks", 8192, NULL, 5, NULL, 0);
-    xTaskCreatePinnedToCore(system_info, "infoTasks", 4096, NULL, 2, NULL, 0);
-    xTaskCreatePinnedToCore(Com::com_tasks, "comTasks", 1024*16, NULL, 6, NULL, 0);
+    /* Start system tasks */
+    xTaskCreatePinnedToCore(system_tasks, "systemTasks", 4096, NULL, 6, NULL, 0);
+    xTaskCreatePinnedToCore(event_tasks, "eventTasks", 4096, NULL, 7, NULL, 0);
+    xTaskCreatePinnedToCore(system_info, "infoTasks", 4096, NULL, 4, NULL, 0);
+    
+    /* Choose peripherals */ 
+    new Wifi(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"), 8080);
+    new Bluetooth(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"));
+    new Serial(System::rootNode(), UART_NUM_0, UART_NUM_0_TXD_DIRECT_GPIO_NUM, UART_NUM_0_RXD_DIRECT_GPIO_NUM);
+    
+    /* Start VoidX control task */
+    xTaskCreatePinnedToCore(Com::com_tasks, "comTasks", 1024*16, NULL, 8, NULL, 0);
 }

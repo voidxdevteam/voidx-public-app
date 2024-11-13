@@ -24,6 +24,6 @@ public:
 	virtual bool fromString(std::string value) = 0;
 	virtual std::string toString() = 0;
 	virtual std::string getValueJSON() = 0;
-	std::string getDescriptionJSON();
+	std::string getDescription();
 };
 

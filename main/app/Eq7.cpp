@@ -66,7 +66,7 @@ void BiquadExec_exec(float * x, float *b, float *a, float * delay, float * y){
 	}*/
 }
 
-Eq7::Eq7(Node * parent, Node *root, Node * sys) : AudioBlock(parent){
+Eq7::Eq7(Node * parent, Node *root, Node * sys) : AudioBlock("Eq7", parent, (bool (*)(void*, float [SAMPLING_CHANNELS][SAMPLING_FRAME]))Eq7::exec){
     new MiniStompX();
 	//info data
 	this->sys = sys;
@@ -125,7 +125,7 @@ Eq7::Eq7(Node * parent, Node *root, Node * sys) : AudioBlock(parent){
 	this->timer = 0;
 }
 
-void Eq7::compile(){
+bool Eq7::compile(){
 	//printf("%f %f %f %f %f %f %f\n", this->band_level[0]->getValue(), this->band_level[1]->getValue(), this->band_level[2]->getValue(), this->band_level[3]->getValue(), this->band_level[4]->getValue(), this->band_level[5]->getValue(), this->band_level[6]->getValue());
 	//eq L channel
 	BiquadExec_compile(&this->biquad_data_1_l, this->band_level[0]->getValue(), 100.0f, 1.4f);
@@ -145,38 +145,42 @@ void Eq7::compile(){
 	BiquadExec_compile(&this->biquad_data_7_r, this->band_level[6]->getValue(), 6400.0f, 1.4f);
 	//gain
 	this->gain_data = powf(10,( this->gain->getValue() / 20.0f));
+	//return value
+	return false;
 }
 
-void Eq7::exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]){
-	if(this->onoff->isValue("ON")){
+bool IRAM_ATTR Eq7::exec(Eq7 * ptr, float data[SAMPLING_CHANNELS][SAMPLING_FRAME]){
+	if(ptr->onoff->isValue("ON")){
 	//eq L channel
-		BiquadExec_exec(data[0], this->biquad_data_1_l.b_coeffs, this->biquad_data_1_l.a_coeffs, this->biquad_data_1_l.d_state, data[0]);
-		BiquadExec_exec(data[0], this->biquad_data_2_l.b_coeffs, this->biquad_data_2_l.a_coeffs, this->biquad_data_2_l.d_state, data[0]);
-		BiquadExec_exec(data[0], this->biquad_data_3_l.b_coeffs, this->biquad_data_3_l.a_coeffs, this->biquad_data_3_l.d_state, data[0]);
-		BiquadExec_exec(data[0], this->biquad_data_4_l.b_coeffs, this->biquad_data_4_l.a_coeffs, this->biquad_data_4_l.d_state, data[0]);
-		BiquadExec_exec(data[0], this->biquad_data_5_l.b_coeffs, this->biquad_data_5_l.a_coeffs, this->biquad_data_5_l.d_state, data[0]);
-		BiquadExec_exec(data[0], this->biquad_data_6_l.b_coeffs, this->biquad_data_6_l.a_coeffs, this->biquad_data_6_l.d_state, data[0]);
-		BiquadExec_exec(data[0], this->biquad_data_7_l.b_coeffs, this->biquad_data_7_l.a_coeffs, this->biquad_data_7_l.d_state, data[0]);
+		BiquadExec_exec(data[0], ptr->biquad_data_1_l.b_coeffs, ptr->biquad_data_1_l.a_coeffs, ptr->biquad_data_1_l.d_state, data[0]);
+		BiquadExec_exec(data[0], ptr->biquad_data_2_l.b_coeffs, ptr->biquad_data_2_l.a_coeffs, ptr->biquad_data_2_l.d_state, data[0]);
+		BiquadExec_exec(data[0], ptr->biquad_data_3_l.b_coeffs, ptr->biquad_data_3_l.a_coeffs, ptr->biquad_data_3_l.d_state, data[0]);
+		BiquadExec_exec(data[0], ptr->biquad_data_4_l.b_coeffs, ptr->biquad_data_4_l.a_coeffs, ptr->biquad_data_4_l.d_state, data[0]);
+		BiquadExec_exec(data[0], ptr->biquad_data_5_l.b_coeffs, ptr->biquad_data_5_l.a_coeffs, ptr->biquad_data_5_l.d_state, data[0]);
+		BiquadExec_exec(data[0], ptr->biquad_data_6_l.b_coeffs, ptr->biquad_data_6_l.a_coeffs, ptr->biquad_data_6_l.d_state, data[0]);
+		BiquadExec_exec(data[0], ptr->biquad_data_7_l.b_coeffs, ptr->biquad_data_7_l.a_coeffs, ptr->biquad_data_7_l.d_state, data[0]);
 		//eq R channel
-		BiquadExec_exec(data[1], this->biquad_data_1_r.b_coeffs, this->biquad_data_1_r.a_coeffs, this->biquad_data_1_r.d_state, data[1]);
-		BiquadExec_exec(data[1], this->biquad_data_2_r.b_coeffs, this->biquad_data_2_r.a_coeffs, this->biquad_data_2_r.d_state, data[1]);
-		BiquadExec_exec(data[1], this->biquad_data_3_r.b_coeffs, this->biquad_data_3_r.a_coeffs, this->biquad_data_3_r.d_state, data[1]);
-		BiquadExec_exec(data[1], this->biquad_data_4_r.b_coeffs, this->biquad_data_4_r.a_coeffs, this->biquad_data_4_r.d_state, data[1]);
-		BiquadExec_exec(data[1], this->biquad_data_5_r.b_coeffs, this->biquad_data_5_r.a_coeffs, this->biquad_data_5_r.d_state, data[1]);
-		BiquadExec_exec(data[1], this->biquad_data_6_r.b_coeffs, this->biquad_data_6_r.a_coeffs, this->biquad_data_6_r.d_state, data[1]);
-		BiquadExec_exec(data[1], this->biquad_data_7_r.b_coeffs, this->biquad_data_7_r.a_coeffs, this->biquad_data_7_r.d_state, data[1]);
+		BiquadExec_exec(data[1], ptr->biquad_data_1_r.b_coeffs, ptr->biquad_data_1_r.a_coeffs, ptr->biquad_data_1_r.d_state, data[1]);
+		BiquadExec_exec(data[1], ptr->biquad_data_2_r.b_coeffs, ptr->biquad_data_2_r.a_coeffs, ptr->biquad_data_2_r.d_state, data[1]);
+		BiquadExec_exec(data[1], ptr->biquad_data_3_r.b_coeffs, ptr->biquad_data_3_r.a_coeffs, ptr->biquad_data_3_r.d_state, data[1]);
+		BiquadExec_exec(data[1], ptr->biquad_data_4_r.b_coeffs, ptr->biquad_data_4_r.a_coeffs, ptr->biquad_data_4_r.d_state, data[1]);
+		BiquadExec_exec(data[1], ptr->biquad_data_5_r.b_coeffs, ptr->biquad_data_5_r.a_coeffs, ptr->biquad_data_5_r.d_state, data[1]);
+		BiquadExec_exec(data[1], ptr->biquad_data_6_r.b_coeffs, ptr->biquad_data_6_r.a_coeffs, ptr->biquad_data_6_r.d_state, data[1]);
+		BiquadExec_exec(data[1], ptr->biquad_data_7_r.b_coeffs, ptr->biquad_data_7_r.a_coeffs, ptr->biquad_data_7_r.d_state, data[1]);
 		//gain
 		for(int i=0; i<SAMPLING_FRAME; i++){
-			data[0][i] *= -this->gain_data;
-			data[1][i] *= -this->gain_data;
+			data[0][i] *= -ptr->gain_data;
+			data[1][i] *= -ptr->gain_data;
 		}
 	}
 	//mode
-	if(this->mode->isValue("Mono")){
+	if(ptr->mode->isValue("Mono")){
 		for(int i=0; i<SAMPLING_FRAME; i++){
 			data[1][i] = data[0][i];
 		}
 	}
+	//return value
+	return false;
 }
 
 bool Eq7::draw(){
@@ -211,13 +215,13 @@ bool Eq7::draw(){
     	x = 50;
     	glcd_drawStringFont(x, 56, (char *)"OUT", Callibri10, 1);
     	x += 20;
-    	glcd_drawRect(x,58, (int)((float)(x+20)+0.20f*AudioProcessor::meter(1, 0)*100.0f/(-METER_MIN_VALUE)),60,1);
-    	glcd_drawRect(x,61, (int)((float)(x+20)+0.20f*AudioProcessor::meter(0, 0)*100.0f/(-METER_MIN_VALUE)),63,1);
+    	glcd_drawRect(x,58, (int)((float)(x+20)+0.20f*AudioProcessor::meter(1, 0)*100.0f/(-METER_MIN_VIEW_VALUE)),60,1);
+    	glcd_drawRect(x,61, (int)((float)(x+20)+0.20f*AudioProcessor::meter(0, 0)*100.0f/(-METER_MIN_VIEW_VALUE)),63,1);
     	x += 28;
     	glcd_drawStringFont(x, 56, (char *)"IN", Callibri10, 1);
     	x += 10;
-    	glcd_drawRect(x,58, (int)((float)(x+20)+0.20f*AudioProcessor::meter(1, 1)*100.0f/(-METER_MIN_VALUE)),60,1);
-    	glcd_drawRect(x,61, (int)((float)(x+20)+0.20f*AudioProcessor::meter(0, 1)*100.0f/(-METER_MIN_VALUE)),63,1);
+    	glcd_drawRect(x,58, (int)((float)(x+20)+0.20f*AudioProcessor::meter(1, 1)*100.0f/(-METER_MIN_VIEW_VALUE)),60,1);
+    	glcd_drawRect(x,61, (int)((float)(x+20)+0.20f*AudioProcessor::meter(0, 1)*100.0f/(-METER_MIN_VIEW_VALUE)),63,1);
     } else {
     	char str[20];
     	if(this->cursor < 7){

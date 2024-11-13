@@ -2,10 +2,10 @@
 extern "C" {
 #endif
 
-#include "esp_check.h";
-#include "driver/i2c.h";
-#include "esp_types.h";
-#include "esp_err.h";
+#include "esp_check.h"
+#include "driver/i2c.h"
+#include "esp_types.h"
+#include "esp_err.h"
 #include "esp_timer.h"
 
 #define ADC_UP_DOWN(data, debounce_ms, on_up, on_down){\

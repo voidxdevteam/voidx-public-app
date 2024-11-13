@@ -42,8 +42,8 @@ private:
 	int timer;
 public:
     Eq7(Node * parent, Node *root, Node * sys);
-    void compile();
-    void exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]);
+    bool compile();
+    static bool exec(Eq7 * ptr, float data[SAMPLING_CHANNELS][SAMPLING_FRAME]);
     bool draw();
     bool onEvent(int event);
 };

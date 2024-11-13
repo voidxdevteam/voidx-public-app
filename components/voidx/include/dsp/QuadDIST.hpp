@@ -17,13 +17,15 @@ private:
     float * output_matrix;
     float * past_in;
     float * past_out;
+    float * LUT_tanh;
+    float * LUT_tanh2;
     int up_index;
     int down_index;
     int filter_size;
     int upsampling;
     int dist_cycles;
     void createLUT();
-    void IRAM_ATTR process4(float * in, float * out);
+    void process4(float * in, float * out);
 public:
     //! QuadDIST constructor
     /*!
@@ -32,6 +34,8 @@ public:
     */
     QuadDIST(int filter_size, int upsampling);
     void load_filter();
+    void setCurve(float alpha);
     void load_filter(float * filter);
-    void IRAM_ATTR exec(float * in, float * out, int length);
+    void * operator new(size_t size);
+    void exec(float * in, float * out, int length);
 };

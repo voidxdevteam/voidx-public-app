@@ -5,6 +5,7 @@
 #define NODE_ITEM_TYPE_SYSTEM 		"system"
 #define NODE_ITEM_TYPE_COLOR 		"color"
 #define NODE_ITEM_TYPE_HFOLDER 		"hfolder"
+#define NODE_ITEM_TYPE_SFOLDER 		"sfolder"
 #define NODE_ITEM_TYPE_VFOLDER 		"vfolder"
 #define NODE_ITEM_TYPE_VFOLDER_TC 	"vfolder_tc"
 #define NODE_ITEM_TYPE_MODULE 		"module"
@@ -26,7 +27,7 @@ public:
 	std::string toString();
 	bool fromString(std::string value);
 	std::string getValueJSON();
-	std::string getDescriptionJSON();
+	std::string getDescription();
 
 	const char* getItemType();
 };

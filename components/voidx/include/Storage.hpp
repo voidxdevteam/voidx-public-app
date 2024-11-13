@@ -15,7 +15,7 @@ public:
     Storable();
     char * getStorageId();
     int getStorageStatus();
-    void loadStorage();
+    bool loadStorage();
     void storeStorage();
     virtual void onLoad(){};
     virtual void createId() = 0;
@@ -25,7 +25,7 @@ public:
 
 namespace Storage
 {
-   void addItem(Storable * item);    
+   bool addItem(Storable * item);    
    void storageTasks(void * par);
    void tasks();
 }

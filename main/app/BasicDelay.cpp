@@ -11,7 +11,7 @@
 parent: application node pointer (typically root/app).
 root: root node pointer.
 */
-BasicDelay::BasicDelay(Node * parent, Node *root) : AudioBlock(parent){
+BasicDelay::BasicDelay(Node * parent, Node *root) : AudioBlock("Basic Delay", parent, (bool (*)(void*, float [SAMPLING_CHANNELS][SAMPLING_FRAME]))BasicDelay::exec){
     /* Initialize the MiniStompX hardware interface. */
     /* BSP classes encapsulate hardware interactions, triggering hardware events, and controlling hardware devices. */
     new MiniStompX();
@@ -50,7 +50,7 @@ BasicDelay::BasicDelay(Node * parent, Node *root) : AudioBlock(parent){
     this->compile();
 }
  
-void BasicDelay::compile(){
+bool BasicDelay::compile(){
     
     /* Mix: Convert the percentage value to a 0-1 representation. */
     this->mixDsp = this->mix->getValue() / 100.0f;
@@ -61,6 +61,9 @@ void BasicDelay::compile(){
     /* Time: get the amount of delay samples. */
     float msDelay = this->timeNode->getValue();
     this->delaySamplesDsp = (msDelay / 1000.0f) * SAMPLING_FREQ; //SAMPLING_FREQ is 44100 or 48000
+    
+    //return value
+    return false;
 }
  
 /* 
@@ -69,22 +72,25 @@ The data bi-dimensional array stores the raw audio samples.
 -The SAMPLING_FRAME constant defines the number of audio samples processed together, usually 16 samples per batch.
 Input is taken from the Left channel only (Right channel is ignored). Output is equal on both channels.
 */
-void BasicDelay::exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]){
+bool IRAM_ATTR BasicDelay::exec(BasicDelay * ptr, float data[SAMPLING_CHANNELS][SAMPLING_FRAME]){
     /* Sample-by-sample unoptimized processing */
     /* Vectorization can significantly improve processing speed. */
     for(int i = 0; i < SAMPLING_FRAME; i++){
         /* Determine the readIndex for retrieving samples from the delay line. */
-        int delayLineReadIndex = this->delayLineWritePointer - this->delaySamplesDsp; 
+        int delayLineReadIndex = ptr->delayLineWritePointer - ptr->delaySamplesDsp; 
         if(delayLineReadIndex < 0) delayLineReadIndex += DELAY_LINE_SIZE; //circular buffer
  
         /* Add a new sample to the delay line. */
         /* The new sample is formed by adding the current input to a scaled version of a past output (feedback). */
-        this->delayLine[this->delayLineWritePointer] = data[0][i] + this->feedbackDsp * this->delayLine[delayLineReadIndex]; 
-        this->delayLineWritePointer++;
-        if(this->delayLineWritePointer >= DELAY_LINE_SIZE) delayLineWritePointer = 0; //circular buffer
+        ptr->delayLine[ptr->delayLineWritePointer] = data[0][i] + ptr->feedbackDsp * ptr->delayLine[delayLineReadIndex]; 
+        ptr->delayLineWritePointer++;
+        if(ptr->delayLineWritePointer >= DELAY_LINE_SIZE) ptr->delayLineWritePointer = 0; //circular buffer
  
         /* Mix dry and wet signals, ensuring equal left and right outputs. */
-        data[0][i] = data[0][i] + this->mixDsp * this->delayLine[delayLineReadIndex]; 
+        data[0][i] = data[0][i] + ptr->mixDsp * ptr->delayLine[delayLineReadIndex]; 
         data[1][i] = data[0][i];
     }
+    //return value
+    //if there is more than one block, returning true will stop the dsp chain execution to this point
+    return false;
 }

@@ -27,5 +27,5 @@ public:
 	bool fromString(std::string value);
 	std::string toString();
 	std::string getValueJSON();
-	std::string getDescriptionJSON();
+	std::string getDescription();
 };

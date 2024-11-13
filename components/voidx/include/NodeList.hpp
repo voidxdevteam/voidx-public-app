@@ -60,6 +60,7 @@ public:
 	std::string next(std::string value);
 	int getElementCount();
 	int getElementSize();
+	void clear();
 	void deleteAt(int index);
 
 	void edit(bool dir);
@@ -70,7 +71,7 @@ public:
 	std::string toString();
 	bool fromString(std::string value);
 	std::string getValueJSON();
-	std::string getDescriptionJSON();
+	std::string getDescription();
 
 	const char* getItemType();
 };

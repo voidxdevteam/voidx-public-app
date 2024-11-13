@@ -4,11 +4,12 @@
 
 class AudioBlock {
     Node * parent;
+    const char * name;
 public:
     static const int AddPushBack = 0;
     static const int AddPushFront = 1;
 
-    AudioBlock(Node * parent, int mode = AudioBlock::AddPushBack);
-    virtual void compile() = 0;
-    virtual void exec(float data[SAMPLING_CHANNELS][SAMPLING_FRAME]) = 0;
+    AudioBlock(const char * name, Node * parent, bool (* block_dsp)(void * ptr, float data[SAMPLING_CHANNELS][SAMPLING_FRAME]), int mode = AudioBlock::AddPushBack);
+    const char * getName();
+    virtual bool compile() = 0;
 };

@@ -14,7 +14,7 @@
 #include "../NodeItem.hpp"
 
 #define WIFI_BUFFER_MAX_SIZE (1024*16)
-#define WIFI_MAX_SERVER		 5
+#define WIFI_MAX_SERVER		 3
 
 class Wifi: public ComInterface {
 private:

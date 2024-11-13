@@ -10,4 +10,5 @@ namespace Light {
 	void forceColor(std::string value);
 	void setDefaultColor(std::string value);
 	void tasks();
+	void setTempColor(std::string color);
 }

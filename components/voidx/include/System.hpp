@@ -5,7 +5,7 @@
 #define COMMUNICATION_STATUS_IDLE -1
 #define COMMUNICATION_MAX_SIZE	256
 
-#define APP_NAME 		"VoidX IR LOADER"
+#define APP_NAME 		"VoidX Device"
 #define APP_AUTHOR		"VoidX team"
 #define APP_VERSION		"1.0"
 #define APP_LICENSE				"ap0003"

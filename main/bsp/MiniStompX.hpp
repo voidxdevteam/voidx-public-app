@@ -34,17 +34,17 @@ class MiniStompX: public Bsp {
         int evt;
         while((evt = IOArray::has_data())){
         	if(evt == IO_ARRAY_DATA_CHANGED) EventDispatcher::broadcast(EVENT_INPUT);
-            //adc
-            ADC_UP_DOWN(internal_adc_get_raw_reading(GPIO_NUM_9), 50, EventDispatcher::addEvent(EVENT_NEXT), EventDispatcher::addEvent(EVENT_PREV));
+            //adc (must be corrected)
+            //ADC_UP_DOWN(internal_adc_get_raw_reading(GPIO_NUM_9), 50, EventDispatcher::addEvent(EVENT_NEXT), EventDispatcher::addEvent(EVENT_PREV));
 			//encoder rotate
-        	ENCODER(IOArray::get_bit(1), IOArray::get_bit(3), EventDispatcher::addEvent(EVENT_ENC_UP), EventDispatcher::addEvent(EVENT_ENC_DOWN), 1);
+        	ENCODER(IOArray::get_bit(1), IOArray::get_bit(3), EventDispatcher::addEvent(EVENT_ENC_UP), EventDispatcher::addEvent(EVENT_ENC_DOWN), 1, ENCODER_STD_DEBOUNCE);
 			//encoder push
-        	PRESS(IOArray::get_bit(0), EventDispatcher::addEvent(EVENT_ENC_PRESSED), EventDispatcher::addEvent(EVENT_ENC_RELEASED), EventDispatcher::addEvent(EVENT_ENC_LONG_RELEASED));
+        	PRESS(IOArray::get_bit(0), EventDispatcher::addEvent(EVENT_ENC_PRESSED), EventDispatcher::addEvent(EVENT_ENC_RELEASED), EventDispatcher::addEvent(EVENT_ENC_LONG_PRESSED), EventDispatcher::addEvent(EVENT_ENC_LONG_RELEASED));
 			//footswitch push
         	int value = gpio_get_level(GPIO_NUM_10);
         	if(value) value = 0;
         	else value = 1;
-        	PRESS(value, EventDispatcher::addEvent(EVENT_FSW_PRESSED), EventDispatcher::addEvent(EVENT_FSW_RELEASED), EventDispatcher::addEvent(EVENT_FSW_LONG_RELEASED));
+        	PRESS(value, EventDispatcher::addEvent(EVENT_FSW_PRESSED), EventDispatcher::addEvent(EVENT_FSW_RELEASED), EventDispatcher::addEvent(EVENT_FSW_LONG_PRESSED), EventDispatcher::addEvent(EVENT_FSW_LONG_RELEASED));
         }
     }
 };
