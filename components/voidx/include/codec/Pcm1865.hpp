@@ -10,6 +10,7 @@ class Pcm1865: public CodecInterface {
 private:
 	static constexpr const char * name = "PCM1865";
     uint16_t dev_addr;
+	int gains[2];
 public:
 	Pcm1865(uint16_t address);
 	bool initialize();

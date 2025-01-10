@@ -9,8 +9,8 @@
 #define METER_MIN_VIEW_VALUE   -100.0f
 #define MAX_AUDIO_BLOCKS        32
 
-#define DEBOUNCE_TIME_CONSTANT   0.9f
-#define DEBOUNCE_LEVEL           0.001f
+#define DEBOUNCE_TIME_CONSTANT   0.75f
+#define DEBOUNCE_LEVEL           0.0001f
 
 namespace AudioProcessor
 {

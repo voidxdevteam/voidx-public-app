@@ -2,6 +2,8 @@
 #define MAIN_SSD1306_H_
 
 #include "driver/spi_master.h"
+#include "driver/i2c_master.h"
+#include "driver/gpio.h"
 
 // Following definitions are bollowed from 
 // http://robotcantalk.blogspot.com/2015/03/interfacing-arduino-with-ssd1306-driven.html
@@ -100,6 +102,9 @@ typedef struct {
 	int _scDirection;
 	PAGE_t _page[8];
 	bool _flip;
+	i2c_port_t _i2c_num;
+	i2c_master_dev_handle_t _i2c_dev_handle;
+	i2c_master_bus_handle_t _i2c_bus_handle;
 } SSD1306_t;
 
 void ssd1306_init(SSD1306_t * dev, int width, int height);

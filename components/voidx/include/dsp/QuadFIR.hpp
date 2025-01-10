@@ -15,7 +15,7 @@ private:
     float * past;
     int index;
     int size;
-    void IRAM_ATTR process4(float * in, float * out);
+    void process4(float * in, float * out);
 public:
     //! QuadFIR constructor
     /*!

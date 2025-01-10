@@ -1,5 +1,6 @@
 #include "Event.hpp"
 #include <stdio.h>
+#pragma once
 
 namespace Board {
     void initialize();

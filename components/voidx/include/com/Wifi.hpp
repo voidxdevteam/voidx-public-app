@@ -28,7 +28,7 @@ private:
 	int ip_protocol;
 	int addr_family;
 	mdns_txt_item_t desc_txt[3];
-	char service_instance[50];
+	char * service_instance;
 	struct timeval timeout;
     struct sockaddr_in6 dest_addr;
 	struct sockaddr_storage source_addr;

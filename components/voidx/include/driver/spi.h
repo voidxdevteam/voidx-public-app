@@ -8,7 +8,9 @@ extern "C" {
 #include "esp_check.h"
 #include "driver/gpio.h"
 
-esp_err_t spi_initialize();
+#define SPI_USE_DEFAULT_PIN -2
+
+esp_err_t spi_initialize(int miso, int mosi, int sclk);
 spi_bus_config_t * spi_get_conf();
 
 #ifdef __cplusplus

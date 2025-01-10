@@ -7,6 +7,7 @@ extern "C" {
 #include "esp_types.h"
 #include "esp_err.h"
 #include "esp_timer.h"
+#include "esp_adc/adc_oneshot.h"
 
 #define ADC_UP_DOWN(data, debounce_ms, on_up, on_down){\
 		int value = data;\
@@ -23,10 +24,7 @@ extern "C" {
 		}\
 	}
 
-esp_err_t internal_adc_init_gpio(int gpio_id);
-int internal_adc_get_raw_reading(int gpio_id);
-float internal_adc_get_proportional_reading(int gpio_id);
-float internal_adc_get_voltage_reading(int gpio_id);
+int adc_read(adc_unit_t unit, adc_channel_t channel);
 
 #ifdef __cplusplus
 }

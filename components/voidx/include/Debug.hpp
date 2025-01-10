@@ -12,12 +12,14 @@ namespace Debug {
     unsigned int get_overrun_cnt();
     unsigned int getCycleTicks();
     unsigned int getExecTicks();
+    unsigned int getMaxTicks(bool reset);
     unsigned int getMaxExecTicks(bool reset);
 }
 
 //#define DEBUG_MESSAGES
 //#define DEBUG_PRESETS
 #define DEBUG_HEAP
+#define DEBUG_USB
 //#define DEBUG_STORAGE
 //#define DEBUG_NOTIFY
 //#define DEBUG_COM

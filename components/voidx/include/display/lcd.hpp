@@ -1,6 +1,11 @@
 #include "glcd.h"
-#include "../driver/i2c_k.h"
+#include "../driver/i2c_bus.h"
 
-void lcd_initialize();
-void lcd_splash();
+namespace LCD {
+    void initialize();
+    void splash();
+    void set_custom_splash(void (*func)(void));
+}
+
+
 

@@ -7,5 +7,6 @@
 #define BUFFER_COUNT		(3)
 #define SAMPLING_CHANNELS   (2)
 #define SAMPLING_BUFFER		(SAMPLING_CHANNELS * SAMPLING_FRAME)
+#define CODEC_PHASE         (-1)
 
 #endif

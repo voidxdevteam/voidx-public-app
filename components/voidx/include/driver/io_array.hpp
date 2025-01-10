@@ -7,7 +7,7 @@
 #define IO_ARRAY_PWM_DISABLE -1
 
 namespace IOArray {
-    void initialize(int max_io, int freq, int queue_time_ms, int pwm_depth);
+    void initialize(int max_io, int freq, int queue_time_ms, int pwm_depth, int miso, int mosi, int sclk, int cs);
     void tasks();
     int has_data();
     int in_get(int index);

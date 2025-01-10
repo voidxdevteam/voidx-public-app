@@ -61,7 +61,7 @@ namespace EventDispatcher
 		}\
 	}
 
-#define LONG_PRESS_DURATION_MS	2000
+#define LONG_PRESS_DURATION_MS	1500
 #define PRESS(in, press, release, longPress, longRelease) {\
 		static int prev_status = in;\
 		static int status = in;\
@@ -69,7 +69,7 @@ namespace EventDispatcher
 		static int timer = 0;\
 		static int initial_status = in;\
 		if(in == status) debounce = 0;\
-		else if(debounce++ > IOArray::ms_to_tick(60)) status = in;\
+		else if(debounce++ > IOArray::ms_to_tick(50)) status = in;\
 		if(timer++ > IOArray::ms_to_tick(LONG_PRESS_DURATION_MS*2)) timer = IOArray::ms_to_tick(LONG_PRESS_DURATION_MS*2);\
 		if(status != initial_status && timer == IOArray::ms_to_tick(LONG_PRESS_DURATION_MS)) {longPress;}\
 		if(status != prev_status){\
