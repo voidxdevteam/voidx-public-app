@@ -1,5 +1,4 @@
 #pragma once
-#include "tusb.h"
 #include "../codec/CodecInterface.hpp"
 
 #define USB_AUDIO_PRIO  10  

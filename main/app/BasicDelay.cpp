@@ -36,7 +36,7 @@ BasicDelay::BasicDelay(Node * parent, Node *root) : AudioBlock("Basic Delay", pa
        -Displayed as integer (0 decimal values) */
     this->mix = new NodeFloat(parent, "mix", "Mix", 0.0f, 100.0f, 50.0f, "%", 0.5f, false, 0);
     this->feedback = new NodeFloat(parent, "fdbk", "Feedback", 0.0f, 1.0f, 0.5, "", 0.5f, false, 2);
-    this->timeNode = new NodeFloat(parent, "time", "Time", 20.0f, 1000.0f, 0, "ms", 0.5f, false, 0);
+    this->timeNode = new NodeFloat(parent, "time", "Time", 20.0f, 1000.0f, 100.0f, "ms", 0.5f, false, 0);
      
     /* Initialize the graphical engine */
     DrawerHome * drw = new DrawerHome(NULL, NULL, NULL);

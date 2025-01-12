@@ -29,6 +29,7 @@
 #include "app/Eq7.hpp"
 #include "codec/CodecInterface.hpp"
 #include "dsp/AudioProcessor.hpp"
+#include "dsp/AudioUSB.hpp"
 #include "bsp/MiniStompX.hpp"
 #include "com/Bluetooth.hpp"
 #include "com/Wifi.hpp"
@@ -60,6 +61,7 @@ void app_main(void){
     new BasicDelay(System::appNode(), System::rootNode());
 
     /* Start the audio engine */
+    AudioUSB::initialize();
     AudioProcessor::audioInitialize(true);
     
     /* Start system tasks */

@@ -17,16 +17,16 @@ class MiniStompX: public Bsp {
 
     void initialize(){
         gpio_set_direction(GPIO_NUM_10, GPIO_MODE_INPUT); //Audioscape bug
-        IOArray::initialize(8, 4000, 100, 32);
+        IOArray::initialize(8, 2000, 100, 32, SPI_USE_DEFAULT_PIN, SPI_USE_DEFAULT_PIN, SPI_USE_DEFAULT_PIN, SPI_USE_DEFAULT_PIN);
         //IOArray::initialize(488, 4000, 100, 16);
         //update_initialize();
         Codec::initialize();
 		Light::initialize(System::systemNode());
         //lcd must be started after codec
-        lcd_initialize();
-        lcd_splash();
+        LCD::initialize();
+        LCD::splash();
         //init expression gpio
-        internal_adc_init_gpio(GPIO_NUM_9);
+        //internal_adc_init_gpio(GPIO_NUM_9);
         rtc_gpio_pullup_en(GPIO_NUM_9);
     }
 

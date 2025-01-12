@@ -1,0 +1,4 @@
+[mapping:voidx_usb]
+archive: voidx__tinyusb.a
+entries:
+    * (noflash)
