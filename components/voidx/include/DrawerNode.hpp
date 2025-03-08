@@ -1,7 +1,8 @@
 #include "Node.hpp"
 #include "Event.hpp"
 
-#define VISIBLE_ITEMS 4
+#define VISIBLE_ITEMS                       4 
+#define DRAWER_NODE_INACTIVITY_TIMEOUT_S    5
 
 class DrawerNode: public Listener {
 private:

@@ -129,6 +129,8 @@ extern "C" {
 // Enable feedback EP
 #define CFG_TUD_AUDIO_ENABLE_FEEDBACK_EP                             1
 
+#define CFG_TUD_AUDIO_ENABLE_FEEDBACK_FORMAT_CORRECTION              1
+
 #define CFG_TUD_AUDIO_FUNC_1_DESC_LEN                                TUD_AUDIO_HEADSET_STEREO_DESC_LEN
 
 // How many formats are used, need to adjust USB descriptor if changed

@@ -21,9 +21,11 @@ private:
     float * LUT_tanh2;
     int up_index;
     int down_index;
+    int offset;
     int filter_size;
     int upsampling;
     int dist_cycles;
+
     void createLUT();
     void process4(float * in, float * out);
 public:

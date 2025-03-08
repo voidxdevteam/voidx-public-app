@@ -66,6 +66,7 @@ static const signed char glcd_pot_15_y[33] = {-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,6,
 //#define TMS_PLATFORM
 
 //functions phisical layer
+void glcd_set_x_offset(int offset);
 void glcd_flushPage(void);
 void glcd_flushAll(void);
 void glcd_initialize(void);

@@ -13,10 +13,12 @@
 class NodeItem : public Node {
 private:
 	std::string value;
+	std::string defaultValue;
 	const char* itemType;
 
 public:
 	NodeItem(Node* parent, const char* name, const char* displayName, std::string value, const char * itemType);
+	NodeItem(Node* parent, const char* name, const char* displayName, std::string value, const char * itemType, std::string defaultValue);
 
 	const char* getType();
 	virtual std::string getValue();

@@ -13,6 +13,7 @@ private:
     int cursor;
     int type;
     int * result;
+    bool pressed;
 
 public:
     DrawerPopup(std::string str1, std::string str2, int type, int * result);

@@ -19,7 +19,7 @@ namespace Debug {
 //#define DEBUG_MESSAGES
 //#define DEBUG_PRESETS
 #define DEBUG_HEAP
-#define DEBUG_USB
+//#define DEBUG_USB
 //#define DEBUG_STORAGE
 //#define DEBUG_NOTIFY
 //#define DEBUG_COM

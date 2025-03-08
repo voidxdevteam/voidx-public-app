@@ -18,6 +18,7 @@
 #include "esp_check.h"
 #include "driver/update/update.hpp"
 #include "app/BasicDelay.hpp"
+#include "app/BasicDelayEvents.hpp"
 #include "esp_dsp.h"
 #include "nvs_flash.h"
 #include "nvs.h"
@@ -58,10 +59,10 @@ void app_main(void){
     System::initialize(APP_LICENSE);
 
     /* Start the application */
-    new BasicDelay(System::appNode(), System::rootNode());
+    new BasicDelayEvents(System::appNode(), System::rootNode());
 
     /* Start the audio engine */
-    AudioUSB::initialize();
+    //AudioUSB::initialize();
     AudioProcessor::audioInitialize(true);
     
     /* Start system tasks */

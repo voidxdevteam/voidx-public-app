@@ -18,10 +18,10 @@ extern "C" {
 #define CONFIG_UAC_MIC_INTERVAL_MS      (10)
 #define CONFIG_UAC_SPK_NEW_PLAY_INTERVAL (100)
 #define CONFIG_TUSB_VID                 (0x303A)
-#define CONFIG_TUSB_PID                 (0x8000)
-#define CONFIG_TUSB_SERIAL_NUM          "87654321"
-#define CONFIG_TUSB_MANUFACTURER        "VoidX"
-#define CONFIG_TUSB_PRODUCT             "Stomp"
+#define CONFIG_TUSB_PID                 (0x82BE)
+#define CONFIG_TUSB_SERIAL_NUM          "00000000"
+#define CONFIG_TUSB_MANUFACTURER        "SONULAB"
+#define CONFIG_TUSB_PRODUCT             "Stompstation"
 //#define CONFIG_TUP_RHPORT_HIGHSPEED    0
 
 #define SPEAK_CHANNEL_NUM    CONFIG_UAC_SPEAKER_CHANNEL_NUM  /*!< SPEAKER */

@@ -1,6 +1,6 @@
 {
     "idf.adapterTargetName": "esp32s3",
-    "idf.portWin": "COM15",
+    "idf.portWin": "COM4",
     "idf.flashType": "UART",
     "files.associations": {
         "dsps_fft2r.h": "c",

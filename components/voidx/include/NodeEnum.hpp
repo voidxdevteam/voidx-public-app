@@ -17,6 +17,7 @@ public:
 	void edit(bool dir);
 	void toggle();
 	void setValue(std::string value);
+	void setByIndex(int index);
 	
     //! Verify if a NodeEnum contains a specific option
     /*!

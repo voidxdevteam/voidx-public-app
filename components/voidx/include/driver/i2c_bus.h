@@ -14,6 +14,7 @@ extern "C" {
 #define I2C_SCL_IO      (GPIO_NUM_15)
 
 esp_err_t i2c_initialize();
+void i2c_set_io(gpio_num_t sda, gpio_num_t scl);
 i2c_master_bus_handle_t i2c_get_handle();
 
 #ifdef __cplusplus

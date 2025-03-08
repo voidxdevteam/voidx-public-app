@@ -97,6 +97,7 @@ typedef struct {
 	int _dc;
 	spi_device_handle_t _SPIHandle;
 	bool _scEnable;
+	bool initialized;
 	int _scStart;
 	int _scEnd;
 	int _scDirection;

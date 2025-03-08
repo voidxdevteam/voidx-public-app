@@ -3,6 +3,7 @@
 #include "../codec/CodecInterface.hpp"
 
 class AudioBlock {
+protected:
     Node * parent;
     const char * name;
 public:

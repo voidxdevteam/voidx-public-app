@@ -16,6 +16,7 @@ namespace AudioProcessor
 {
     void audioLoop(void * args);
     void audioInitialize(bool meters);
+    bool hasBlock(AudioBlock * block);
     void addBlock(AudioBlock * block, bool (* block_dsp)(void * ptr, float data[SAMPLING_CHANNELS][SAMPLING_FRAME]), int mode = AudioBlock::AddPushBack);
     bool channelSaturation(int channel, int io);
     float meter(int channel, int io);
