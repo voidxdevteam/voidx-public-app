@@ -73,7 +73,7 @@ void app_main(void){
     /* Choose peripherals */ 
     new Wifi(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"), 8080);
     new Bluetooth(System::rootNode(), System::rootNode()->pathToNode("root\\sys\\_name"));
-    new Serial(System::rootNode(), UART_NUM_0, UART_NUM_0_TXD_DIRECT_GPIO_NUM, UART_NUM_0_RXD_DIRECT_GPIO_NUM);
+    //new Serial(System::rootNode(), UART_NUM_0, UART_NUM_0_TXD_DIRECT_GPIO_NUM, UART_NUM_0_RXD_DIRECT_GPIO_NUM);
     
     /* Start VoidX control task */
     xTaskCreatePinnedToCore(Com::com_tasks, "comTasks", 1024*16, NULL, 8, NULL, 0);

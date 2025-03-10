@@ -1,14 +1,21 @@
 #pragma once
 #include "dsp/AudioBlock.hpp"
 #include "NodeFloat.hpp"
+#include "NodeEnum.hpp"
 #include "Event.hpp"
  
 class BasicDelayEvents: public AudioBlock, public Listener {
 private:
     //Parameters
+    NodeEnum * onOff;
+    NodeEnum * onOffDelay;
     NodeFloat * mix;
     NodeFloat * feedback; 
     NodeFloat * timeNode;
+    NodeFloat * volume;
+    NodeEnum * onOffAdvanced;
+    NodeFloat * dummyAdvanced;
+    NodeFloat * dummySettings;
  
     //Low-level DSP parameters.
     float * delayLine; //Delay circular buffer
