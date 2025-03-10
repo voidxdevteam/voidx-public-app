@@ -27,6 +27,14 @@ BasicDelayEvents::BasicDelayEvents(Node * parent, Node *root) : AudioBlock("Basi
     NodeItem * logo = (NodeItem *)root->pathToNode("root\\sys\\_logo");
     if(logo != NULL) logo->setValue("https://www.voidxdevteam.com/wp-content/uploads/2024/07/logo_square.png");
  
+    //Main ON-OFF Node
+    this->onOff = new NodeEnum(parent, "on_off", "Enable", {"ON", "OFF"}, "ON");
+
+    /* Create hfolders for high-level logical division. */
+    NodeItem * delayFolder = new NodeItem(parent, "delay", "Delay", "", "hfolder");
+    NodeItem * outputFolder = new NodeItem(parent, "output", "Output Mix", "", "hfolder");
+    delayFolder->setStyle("color:#0000FF;");
+
     /* Configure parameter nodes. */
     /* For example, the mix parameter is defined as follows:
        -"mix" as system name (locate the node at root/app/mix). 
@@ -35,9 +43,24 @@ BasicDelayEvents::BasicDelayEvents(Node * parent, Node *root) : AudioBlock("Basi
        -Linear curve (shape = 0.5f). Log-curve (<0.5), anti-log-curve (>0.5).
        -Inverted = false: parameter increases with value.
        -Displayed as integer (0 decimal values) */
-    this->mix = new NodeFloat(parent, "mix", "Mix", 0.0f, 100.0f, 50.0f, "%", 0.5f, false, 0);
-    this->feedback = new NodeFloat(parent, "fdbk", "Feedback", 0.0f, 1.0f, 0.5, "", 0.5f, false, 2);
-    this->timeNode = new NodeFloat(parent, "time", "Time", 20.0f, 1000.0f, 100.0f, "ms", 0.5f, false, 0);
+
+    this->onOffDelay = new NodeEnum(delayFolder, "on_off", "Enable", {"ON", "OFF"}, "OFF");
+    this->mix = new NodeFloat(delayFolder, "mix", "Mix", 0.0f, 100.0f, 50.0f, "%", 0.5f, false, 0);
+    this->feedback = new NodeFloat(delayFolder, "fdbk", "Feedback", 0.0f, 1.0f, 0.5, "", 0.5f, false, 2);
+    this->timeNode = new NodeFloat(delayFolder, "time", "Time", 20.0f, 1000.0f, 100.0f, "ms", 0.5f, false, 0);
+    timeNode->setStyle("color:#00FF00;");
+
+    //Arrange the "Output Mix" folder with a volume parameter and a vfolder inside
+    this->volume = new NodeFloat(outputFolder, "vol", "Volume", 0.0f, 1.0f, 0.5, "", 0.5f, false, 2);
+
+    /* Create vfolders for lower-level sub-division into the ""Output Mix" folder. */
+    NodeItem * advancedFolder = new NodeItem(outputFolder, "advanced", "Advanced", "", "vfolder");
+    this->onOffAdvanced = new NodeEnum(advancedFolder, "on_off", "Enable", {"ON", "OFF"}, "OFF");
+    this->dummyAdvanced = new NodeFloat(advancedFolder, "dummyadv", "Dummy Advanced", 0.0f, 100.0f, 50.0f, "%", 0.5f, false, 0);
+
+    /* Create sfolder for system-level logical division: "Settings" is the tipical example. */
+    NodeItem * setupFolder = new NodeItem(root, "setup", "Setup", "", "sfolder");
+    this->dummySettings = new NodeFloat(setupFolder, "dummyset", "Useless Setting", 0.0f, 100.0f, 50.0f, "%", 0.5f, false, 0);
      
     /* Initialize the graphical engine */
     //DrawerHome * drw = new DrawerHome(NULL, NULL, NULL);
