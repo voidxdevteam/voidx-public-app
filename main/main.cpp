@@ -56,7 +56,7 @@ static void system_info(void * ptr){
 extern "C"
 void app_main(void){
 
-    System::initialize(APP_LICENSE);
+    System::initialize(APP_PUBLIC_LICENSE);
 
     /* Start the application */
     new BasicDelayEvents(System::appNode(), System::rootNode());
